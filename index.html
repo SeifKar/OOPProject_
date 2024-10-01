@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    .product, .cart-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+    .product img, .cart-item img {
+      width: 100px;
+      height: auto;
+      margin-right: 10px;
+    }
+    .cart-item {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Shopping Cart</h1>
+
+  <!-- Product List -->
+  <div id="product-list">
+    <h2>Products</h2>
+    <div class="product">
+      <img src="Products/laptop.jpeg" alt="#">
+      <div>
+        <h3>Laptop</h3>
+        <p>Price: 100,000 KES</p>
+        <button onclick="addToCart(1)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product">
+      <img src="Products/Phone.jpeg" alt="#">
+      <div>
+        <h3>Phone</h3>
+        <p>Price: 50,000 KES</p>
+        <button onclick="addToCart(2)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product">
+      <img src="Products/tablet.jpeg" alt="#">
+      <div>
+        <h3>Tablet</h3>
+        <p>Price: 30,000 KES</p>
+        <button onclick="addToCart(3)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product">
+      <img src="Products/headphones.jpeg" alt="#">
+      <div>
+        <h3>Headphones</h3>
+        <p>Price: 15,000 KES</p>
+        <button onclick="addToCart(4)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="product">
+      <img src="Products/smartwatch.jpg" alt="#">
+      <div>
+        <h3>Smartwatch</h3>
+        <p>Price: 20,000 KES</p>
+        <button onclick="addToCart(5)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Section -->
+  <div id="cart">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <p>Total Items: <span id="total-items">0</span></p>
+    <p>Total Price: <span id="total-price">0</span> KES</p>
+  </div>
+
+  <script src="cart.js"></script>
+
+</body>
+</html>
