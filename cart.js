@@ -1,99 +1,138 @@
-// Product class to store product details
+// Product Class
 class Product {
-    constructor(id, name, price, imageUrl) {
-      this.id = id;
-      this.name = name;
-      this.price = price; // Price in Ksh
-      this.imageUrl = imageUrl; // Added image URL property
-    }
+  constructor(id, name, price) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
   }
-  
-  // ShoppingCartItem class to store the product and quantity
-  class ShoppingCartItem {
-    constructor(product, quantity) {
-      this.product = product;
-      this.quantity = quantity;
-    }
-  
-    getTotalPrice() {
-      return this.product.price * this.quantity; // Returns total price in KES
-    }
+}
+
+// ShoppingCartItem Class
+class ShoppingCartItem {
+  constructor(product, quantity) {
+    this.product = product;
+    this.quantity = quantity;
   }
-  
-  // ShoppingCart class to manage the cart items
-  class ShoppingCart {
-    constructor() {
-      this.items = [];
+
+  // Method to calculate the total price of this cart item
+  getTotalPrice() {
+    return this.product.price * this.quantity;
+  }
+}
+
+// ShoppingCart Class
+class ShoppingCart {
+  constructor() {
+    this.items = [];
+  }
+
+  // Method to add an item to the cart
+  addItem(product) {
+    const existingItem = this.items.find(item => item.product.id === product.id);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      const newItem = new ShoppingCartItem(product, 1);
+      this.items.push(newItem);
     }
-  
-    addItem(product, quantity) {
-      const existingItem = this.items.find(item => item.product.id === product.id);
-      if (existingItem) {
-        existingItem.quantity += quantity;
+    this.displayCart();
+  }
+
+  // Method to remove an item from the cart
+  removeItem(productId) {
+    const itemIndex = this.items.findIndex(item => item.product.id === productId);
+    if (itemIndex !== -1) {
+      const item = this.items[itemIndex];
+      if (item.quantity > 1) {
+        item.quantity -= 1;
       } else {
-        const cartItem = new ShoppingCartItem(product, quantity);
-        this.items.push(cartItem);
+        this.items.splice(itemIndex, 1);
       }
-      this.displayCart();
     }
-  
-    removeItem(productId) {
-      this.items = this.items.filter(item => item.product.id !== productId);
-      this.displayCart();
-    }
-  
-    getTotalItems() {
-      return this.items.reduce((total, item) => total + item.quantity, 0);
-    }
-  
-    getTotalPrice() {
-      return this.items.reduce((total, item) => total + item.getTotalPrice(), 0);
-    }
-  
-    displayCart() {
-      const cartItemsDiv = document.getElementById('cart-items');
-      cartItemsDiv.innerHTML = ''; // Clear the cart display
-  
-      this.items.forEach(item => {
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.classList.add('cart-item');
-        cartItemDiv.innerHTML = `
-          <img src="${item.product.imageUrl}" alt="${item.product.name}">
-          <div>
-            <h4>${item.product.name}</h4>
-            <p>Quantity: ${item.quantity}</p>
-            <p>Total Price: ${item.getTotalPrice()} KES</p>
-            <button onclick="removeFromCart(${item.product.id})">Remove</button>
-          </div>
-        `;
-        cartItemsDiv.appendChild(cartItemDiv);
-      });
-  
-      document.getElementById('total-items').innerText = this.getTotalItems();
-      document.getElementById('total-price').innerText = this.getTotalPrice();
-    }
+    this.displayCart();
   }
-  
-  // Instantiate the shopping cart
-  const cart = new ShoppingCart();
-  
-  // Define available products
-  const products = [
-    new Product(1, 'Laptop', 100000, 'Products/laptop.jpeg'),
-    new Product(2, 'Phone', 50000, 'Products/Phone.jpeg'),
-    new Product(3, 'Tablet', 30000, 'Products/tablet.jpeg'),
-    new Product(4, 'Headphones', 15000, 'Products/headphones.jpeg'),
-    new Product(5, 'Smartwatch', 20000, 'Products/smartwatch.jpg'),
-  ];
-  
-  // Function to add products to the cart
-  function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    cart.addItem(product, 1);
+
+  // Method to delete an item completely from the cart
+  deleteItem(productId) {
+    this.items = this.items.filter(item => item.product.id !== productId);
+    this.displayCart();
   }
-  
-  // Function to remove products from the cart
-  function removeFromCart(productId) {
-    cart.removeItem(productId);
+
+  // Method to calculate the total price of all items in the cart
+  getTotal() {
+    return this.items.reduce((total, item) => total + item.getTotalPrice(), 0);
   }
-  
+
+  // Method to display the cart and update the total price
+  displayCart() {
+    const totalElement = document.querySelector('.total');
+    totalElement.textContent = `${this.getTotal()} Ksh`;
+
+    // Update quantity for each product in the UI
+    this.items.forEach(item => {
+      const productCard = document.querySelector(`.product-card[data-product="${item.product.name.toLowerCase()}"]`);
+      const quantityElement = productCard.querySelector('.quantity');
+      quantityElement.textContent = item.quantity;
+    });
+  }
+}
+
+// Initialize the cart
+const cart = new ShoppingCart();
+
+// Map of products to their instances
+const products = {
+  headphones: new Product(1, 'Headphones', 40000),
+  laptop: new Product(2, 'Laptop', 250000),
+  phone: new Product(3, 'Phone', 180000)
+};
+
+// Function to handle adding items
+function handleAddItem(event) {
+  const productElement = event.target.closest('.product-card');
+  const productName = productElement.dataset.product;
+  const product = products[productName.toLowerCase()];
+  cart.addItem(product);
+}
+
+// Function to handle removing items
+function handleRemoveItem(event) {
+  const productElement = event.target.closest('.product-card');
+  const productName = productElement.dataset.product;
+  const product = products[productName.toLowerCase()];
+  cart.removeItem(product.id);
+}
+
+// Function to handle deleting an item
+function handleDeleteItem(event) {
+  const productElement = event.target.closest('.product-card');
+  const productName = productElement.dataset.product;
+  const product = products[productName.toLowerCase()];
+  cart.deleteItem(product.id);
+}
+
+// Function to handle liking an item
+function handleLikeItem(event) {
+  const heartIcon = event.target;
+  heartIcon.classList.toggle('liked');
+}
+
+// Set up event listeners for each product card
+document.querySelectorAll('.add-item').forEach(button => {
+  button.addEventListener('click', handleAddItem);
+});
+
+document.querySelectorAll('.remove-item').forEach(button => {
+  button.addEventListener('click', handleRemoveItem);
+});
+
+document.querySelectorAll('.fa-trash-alt').forEach(button => {
+  button.addEventListener('click', handleDeleteItem);
+});
+
+document.querySelectorAll('.fa-heart').forEach(button => {
+  button.addEventListener('click', handleLikeItem);
+});
+
+// Initialize the cart display
+cart.displayCart();

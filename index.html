@@ -1,85 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
-  <style>
-    .product, .cart-item {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-    }
-    .product img, .cart-item img {
-      width: 100px;
-      height: auto;
-      margin-right: 10px;
-    }
-    .cart-item {
-      background-color: #f9f9f9;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Shopping Cart</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search" />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="shopping-cart-container">
+        <div class="total-price">
+          <span>Total price:</span>
+          <span class="total">0 Ksh</span>
+        </div>
+        <div class="row list-products">
+          <!-- Product 1: headphones -->
+          <div class="col-md-4">
+            <div class="card-body product-card" data-product="headphones">
+              <div class="card" style="width: 18rem">
+                <img
+                  src="Products/headphones.jpeg"
+                  class="card-img-top"
+                  alt="Headphones"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Bose Headphones</h5>
+                  <p class="card-text">
+                    Bose headphones are premium audio devices known for their
+                    superior sound quality, active noise-canceling technology, and
+                    comfortable design.
+                  </p>
+                  <h4 class="unit-price">Ksh. 40,000</h4>
+                  <div>
+                    <i class="fas fa-plus-circle add-item"></i>
+                    <span class="quantity fs-3">0</span>
+                    <i class="fas fa-minus-circle remove-item"></i>
+                  </div>
+                  <div>
+                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 2: laptop -->
+          <div class="col-md-4">
+            <div class="card-body product-card" data-product="laptop">
+              <div class="card" style="width: 18rem">
+                <img src="Products/laptop.jpeg" class="card-img-top" alt="Laptop" />
+                <div class="card-body">
+                  <h5 class="card-title">MacBook Air</h5>
+                  <p class="card-text">
+                    The MacBook Air is a lightweight, ultra-portable laptop from
+                    Apple, known for its sleek design, powerful performance, and
+                    long battery life.
+                  </p>
+                  <h4 class="unit-price">Ksh. 250,000</h4>
+                  <div>
+                    <i class="fas fa-plus-circle add-item"></i>
+                    <span class="quantity fs-3">0</span>
+                    <i class="fas fa-minus-circle remove-item"></i>
+                  </div>
+                  <div>
+                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product 3: Phone -->
+          <div class="col-md-4">
+            <div class="card-body product-card" data-product="Phone">
+              <div class="card" style="width: 18rem">
+                <img src="Products/Phone.jpeg" class="card-img-top" alt="Phone" />
+                <div class="card-body">
+                  <h5 class="card-title">Samsung S24 Ultra</h5>
+                  <p class="card-text">
+                    The Samsung Galaxy S24 Ultra is a high-end smartphone that
+                    features a large, vibrant AMOLED display, offering stunning
+                    visuals and smooth performance.
+                  </p>
+                  <h4 class="unit-price">Ksh. 180,000</h4>
+                  <div>
+                    <i class="fas fa-plus-circle add-item"></i>
+                    <span class="quantity fs-3">0</span>
+                    <i class="fas fa-minus-circle remove-item"></i>
+                  </div>
+                  <div>
+                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer></footer>
 
-  <h1>Shopping Cart</h1>
-
-  <!-- Product List -->
-  <div id="product-list">
-    <h2>Products</h2>
-    <div class="product">
-      <img src="Products/laptop.jpeg" alt="#">
-      <div>
-        <h3>Laptop</h3>
-        <p>Price: 100,000 KES</p>
-        <button onclick="addToCart(1)">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product">
-      <img src="Products/Phone.jpeg" alt="#">
-      <div>
-        <h3>Phone</h3>
-        <p>Price: 50,000 KES</p>
-        <button onclick="addToCart(2)">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product">
-      <img src="Products/tablet.jpeg" alt="#">
-      <div>
-        <h3>Tablet</h3>
-        <p>Price: 30,000 KES</p>
-        <button onclick="addToCart(3)">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product">
-      <img src="Products/headphones.jpeg" alt="#">
-      <div>
-        <h3>Headphones</h3>
-        <p>Price: 15,000 KES</p>
-        <button onclick="addToCart(4)">Add to Cart</button>
-      </div>
-    </div>
-    <div class="product">
-      <img src="Products/smartwatch.jpg" alt="#">
-      <div>
-        <h3>Smartwatch</h3>
-        <p>Price: 20,000 KES</p>
-        <button onclick="addToCart(5)">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Cart Section -->
-  <div id="cart">
-    <h2>Your Cart</h2>
-    <div id="cart-items"></div>
-    <p>Total Items: <span id="total-items">0</span></p>
-    <p>Total Price: <span id="total-price">0</span> KES</p>
-  </div>
-
-  <script src="cart.js"></script>
-
-</body>
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
+    <!-- Font Awesome JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/js/all.min.js"
+      integrity="sha512-vP3twfKNuXvNjXND0SRK1BtK/YmryY6Xe1e7ZB06pYd/hyNd7w5KadVi9fXGYtLcVijD6McKZQQhSoI6tKzS7Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <!-- updated js link -->
+    <script src="./cart.js"></script>
+  </body>
 </html>
